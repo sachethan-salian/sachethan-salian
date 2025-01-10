@@ -427,6 +427,12 @@ async function addTicket(event) {
       showPopupMessage("Ticket added successfully!");
       document.getElementById('id01').style.display = 'none'; // Close popup
       loadTickets(); // Refresh ticket list
+    
+    document.getElementById("type").value = "";
+      document.getElementById("dueDate").value = "";
+      document.getElementById("fileUrl").value = "";
+      document.getElementById("description").value = "";
+
     } else {
       showPopupMessage("Failed to add ticket: " + (result.error || "Unknown error"));
     }
@@ -498,7 +504,8 @@ document.getElementById("editDueDateshow").textContent = formattedDate;
   // Display the modal
   document.getElementById("editTicketModal").style.display = "block";
 }
-function closeEditModal() {
+
+function closeEditModal() {
   // Close the modal by hiding it
   document.getElementById("editTicketModal").style.display = "none";
 }
@@ -539,7 +546,6 @@ function deleteTicket(button) {
 
   fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
     .then((res) => res.text())
@@ -592,26 +598,7 @@ document.addEventListener('click', (event) => {
     }
 });
 
-  // Initialize Swiper
-    const swiper = new Swiper('.swiper-container', {
-      slidesPerView: 3,      // Show 3 slides at a time
-      spaceBetween: 10,      // Space between slides
-      loop: true,            // Infinite loop
-      autoplay: {
-        delay: 3000,         // Auto swipe every 3 seconds
-        disableOnInteraction: false, // Continue autoplay after manual interaction
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
 
-//-------
 
 // Function to handle user details update
 async function modifyUserDetails(event) {
@@ -641,7 +628,6 @@ async function modifyUserDetails(event) {
   try {
     const response = await fetch(API_URL, { 
       method: "POST", 
-      headers: { "Content-Type": "application/json" }, 
       body: JSON.stringify(data) 
     });
 
